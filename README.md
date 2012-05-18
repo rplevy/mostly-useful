@@ -5,7 +5,7 @@ Mostly useful utility functions.
 
 ## Usage
 
---
+http://clojars.org/mostly-useful
 
 ## License
 
