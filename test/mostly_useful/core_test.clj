@@ -23,8 +23,8 @@
    (->> 1 (base/prn>> "mary") list) => [1]))
 
 (fact
- (base/assoc-keep {:a 1} :c nil :d 3 :f 4 :g 9)
- => {:a 1 :d 3 :f 4 :g 9})
+ (base/assoc-keep {:a 1} :c nil :d 3 :f 4 :g 9 :h false)
+ => {:a 1 :d 3 :f 4 :g 9 :h false})
 
 (facts "about converting keys"
   (let [m {:make "csi" :uuid "abc-123" :serial-number "40657" :model "CR1000"}]

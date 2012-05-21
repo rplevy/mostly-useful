@@ -36,7 +36,7 @@
 (defn reduce-keepv
   "reduce-kv with rejection of nil values"
   [f init coll]
-  (reduce-kv (fn [r k v] (if v (f r k v) r)) init coll))
+  (reduce-kv (fn [r k v] (if-not (nil? v) (f r k v) r)) init coll))
 
 (defn assoc-keep
   "only assoc non-null values"
