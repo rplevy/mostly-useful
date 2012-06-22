@@ -24,11 +24,12 @@
 
 (defn flip
   "given a function, create a flipped 2-argument function"
-  [f] (fn [a b] (f b a)))
+  [f]
+  (fn [a b] (f b a)))
 
 (defmacro flop
-  "create a version of a function with a modified arity by providing
-   a vector of zero-indexed positions, e.g. [0 3 1 2]"
+  "create a version of a function with a modified arity as specified by a
+   vector of zero-indexed positions, e.g. [0 3 1 2]"
   [f positions]
   (let [syms (vec (repeatedly (count positions) gensym))]
     `(fn [~@syms] (~f ~@(map syms positions)))))
