@@ -34,5 +34,5 @@
   [m & {:as kv}]
   (reduce-keepv assoc m kv))
 
-(defn convert-keys [f m]
+(defn update-keys [f m]
   (reduce-kv #(assoc %1 (f %2) %3) {} m))
