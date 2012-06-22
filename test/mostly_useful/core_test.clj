@@ -15,19 +15,28 @@
  ((base/flip conj) 4 [1 2 3]) => [1 2 3 4])
 
 (facts
- "prn> & prn>>"
- (with-out-str (-> 1 (base/prn> "quux") list)) => "\"quux\" 1\n"
- (with-out-str (->> 1 (base/prn>> "mary") list)) => "\"mary\" 1\n"
- (with-out-str
-   (-> 1 (base/prn> "quux") list) => [1]
-   (->> 1 (base/prn>> "mary") list) => [1]))
+ "about rearranging the arity of a function"
+ (let [flippy-vector (base/flop vector [2 0 1])
+       flippy-conj (base/flop conj [3 2 1 0])]
+   (flippy-vector :a :b :c) => [:c :a :b]
+   (flippy-conj 1 2 3 [1 2]) => [1 2 3 2 1]))
+
+(fact
+ (base/reduce-keepv conj [] {:a 1 :b 2 :c nil}) => [:a 1 :b 2])
 
 (fact
  (base/assoc-keep {:a 1} :c nil :d 3 :f 4 :g 9 :h false)
  => {:a 1 :d 3 :f 4 :g 9 :h false})
 
-(facts "about converting keys"
-  (let [m {:make "csi" :uuid "abc-123" :serial-number "40657" :model "CR1000"}]
-    (base/convert-keys name m)
-    => {"make" "csi" "uuid" "abc-123" "serial-number" "40657" "model" "CR1000"}
-    (base/convert-keys keyword (base/convert-keys name m)) => m))
+(facts
+ "about updating keys"
+ (let [m {:make "csi" :uuid "abc-123" :serial-number "40657" :model "CR1000"}]
+   (base/update-keys name m)
+   => {"make" "csi" "uuid" "abc-123" "serial-number" "40657" "model" "CR1000"}
+   (base/update-keys keyword (base/update-keys name m)) => m))
+
+(facts
+ "about updating values"
+ (let [m {:make "csi" :uuid "abc-123" :serial-number 40657 :model 1000}]
+   (base/update-values str m)
+   => {:make "csi" :uuid "abc-123" :serial-number "40657" :model "1000"}))
