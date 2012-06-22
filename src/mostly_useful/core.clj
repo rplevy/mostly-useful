@@ -36,3 +36,6 @@
 
 (defn update-keys [f m]
   (reduce-kv #(assoc %1 (f %2) %3) {} m))
+
+(defn update-values [f m]
+  (reduce-kv #(assoc %1 %2 (f %3)) {} m))
