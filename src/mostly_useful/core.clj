@@ -1,7 +1,7 @@
 (ns mostly-useful.core)
 
 (defmacro if-pred-let
-  "If test is true, evaluates then with binding-form bound to the value of 
+  "If test is true, evaluates then with binding-form bound to the value of
   test, if not, yields else"
   ([pred bindings then]
    `(if-let ~bindings ~then nil))
@@ -21,17 +21,8 @@
        (when (~pred temp#)
          (let [~form temp#]
            ~@body)))))
-  
+
 (defn flip [f] (fn [a b] (f b a)))
-
-(defn prn>
-  "Ex: (-> 1 (prn> \"quux\") list)"
-  [x pre]
-  (prn pre x) x)
-
-(def prn>>
-  "Ex: (->> 1 (prn>> \"mary\") list)"
-  (flip prn>))
 
 (defn reduce-keepv
   "reduce-kv with rejection of nil values"
