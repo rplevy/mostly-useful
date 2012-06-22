@@ -15,6 +15,9 @@
  ((base/flip conj) 4 [1 2 3]) => [1 2 3 4])
 
 (fact
+ (base/reduce-keepv conj [] {:a 1 :b 2 :c nil}) => [:a 1 :b 2])
+
+(fact
  (base/assoc-keep {:a 1} :c nil :d 3 :f 4 :g 9 :h false)
  => {:a 1 :d 3 :f 4 :g 9 :h false})
 
