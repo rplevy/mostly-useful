@@ -22,10 +22,12 @@
          (let [~form temp#]
            ~@body)))))
 
-(defn flip [f] (fn [a b] (f b a)))
+(defn flip
+  "given a function, create a flipped 2-argument function"
+  [f] (fn [a b] (f b a)))
 
-(defmacro flip-out
-  "create a version of the function with a modified arity by providing
+(defmacro flop
+  "create a version of a function with a modified arity by providing
    a vector of zero-indexed positions, e.g. [0 3 1 2]"
   [f positions]
   (let [syms (vec (repeatedly (count positions) gensym))]
