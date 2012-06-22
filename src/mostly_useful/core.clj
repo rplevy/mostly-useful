@@ -24,6 +24,13 @@
 
 (defn flip [f] (fn [a b] (f b a)))
 
+(defmacro flip-out
+  "create a version of the function with a modified arity by providing
+   a vector of zero-indexed positions, e.g. [0 3 1 2]"
+  [f positions]
+  (let [syms (vec (repeatedly (count positions) gensym))]
+    `(fn [~@syms] (~f ~@(map syms positions)))))
+
 (defn reduce-keepv
   "reduce-kv with rejection of nil values"
   [f init coll]

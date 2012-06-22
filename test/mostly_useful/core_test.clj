@@ -14,6 +14,13 @@
  "flip"
  ((base/flip conj) 4 [1 2 3]) => [1 2 3 4])
 
+(facts
+ "about rearranging the arity of a function"
+ (let [flippy-vector (base/flip-out vector [2 0 1])
+       flippy-conj (base/flip-out conj [3 2 1 0])]
+   (flippy-vector :a :b :c) => [:c :a :b]
+   (flippy-conj 1 2 3 [1 2]) => [1 2 3 2 1]))
+
 (fact
  (base/reduce-keepv conj [] {:a 1 :b 2 :c nil}) => [:a 1 :b 2])
 
