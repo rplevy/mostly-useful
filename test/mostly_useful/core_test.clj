@@ -40,3 +40,37 @@
  (let [m {:make "csi" :uuid "abc-123" :serial-number 40657 :model 1000}]
    (base/update-values str m)
    => {:make "csi" :uuid "abc-123" :serial-number "40657" :model "1000"}))
+
+(with-out-str
+  (facts
+   "with and within"
+   (base/with    (+ 1 2 3) (println "x") (println %) (println "y"))
+   => nil
+   (base/within  (+ 1 2 3) (println "x") (println %) (println "y"))
+   => 6
+
+   (base/with    (+ 1 2 3) (println "x") (println %) (println "y") (inc %))
+   => 7
+   (base/within  (+ 1 2 3) (println "x") (println %) (println "y") (inc %))
+   => 6
+
+   (with-out-str
+     (base/with   (+ 1 2 3) (println "x") (println %) (println "y") (inc %)))
+   => "x\n6\ny\n"
+   (with-out-str
+     (base/within (+ 1 2 3) (println "x") (println %) (println "y") (inc %)))
+   => "x\n6\ny\n"
+
+   (with-out-str
+     (-> (+ 1 2)
+         (base/within (println %))
+         inc
+         (base/within (println %))
+         inc))
+   => "3\n4\n"
+   (->   (+ 1 2)
+         (base/within (println %))
+         inc
+         (base/within (println %))
+         inc)
+   => 5))
