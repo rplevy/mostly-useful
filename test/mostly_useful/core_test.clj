@@ -44,14 +44,14 @@
 (with-out-str
   (facts
    "with and within"
-   (base/with    (+ 1 2 3) (println "x") (println %) (println "y"))
+   (base/with   (+ 1 2 3) (println "x") (println %) (println "y"))
    => nil
-   (base/within  (+ 1 2 3) (println "x") (println %) (println "y"))
+   (base/within (+ 1 2 3) (println "x") (println %) (println "y"))
    => 6
 
-   (base/with    (+ 1 2 3) (println "x") (println %) (println "y") (inc %))
+   (base/with   (+ 1 2 3) (println "x") (println %) (println "y") (inc %))
    => 7
-   (base/within  (+ 1 2 3) (println "x") (println %) (println "y") (inc %))
+   (base/within (+ 1 2 3) (println "x") (println %) (println "y") (inc %))
    => 6
 
    (with-out-str
