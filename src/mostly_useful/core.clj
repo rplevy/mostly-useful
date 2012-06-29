@@ -49,3 +49,15 @@
 
 (defn update-values [f m]
   (reduce-kv #(assoc %1 %2 (f %3)) {} m))
+
+(defmacro with
+  "do things with the first expression passed,
+   and produce the result"
+  [expr & body]
+  `(let [~'% ~expr] ~@body))
+
+(defmacro within
+  "do things with the first expression passed (for side effects),
+   but produce the value of the first expression"
+  [expr & body]
+  `(let [~'% ~expr] ~@body ~'%))
