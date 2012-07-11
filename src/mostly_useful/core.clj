@@ -61,3 +61,19 @@
    but produce the value of the first expression"
   [expr & body]
   `(let [~'% ~expr] ~@body ~'%))
+
+(defmacro timed
+  "time the execution of the body (for side effects) and return the time it
+  took in milliseconds"
+  [& body]
+  `(let [start# (System/currentTimeMillis)]
+    ~@body
+    (- (System/currentTimeMillis) start#)))
+
+(defmacro timed-with-results
+  "time the execution of the body. Return map of :time (as milliseconds)
+  and :results"
+  [& body]
+  `(let [start# (System/currentTimeMillis)]
+    {:results (do ~@body)
+     :time (- (System/currentTimeMillis) start#)}))
