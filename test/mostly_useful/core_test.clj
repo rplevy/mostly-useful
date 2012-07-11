@@ -78,4 +78,9 @@
 (facts
   "timed"
   (base/timed (Thread/sleep 10)) => (roughly 10 2)
-  (base/timed (Thread/sleep 50)) => (roughly 50 2))
+  (base/timed (Thread/sleep 50)) => (roughly 50 1)
+
+  (base/timed-with-results (Thread/sleep 50) true) =>
+  (contains {:time  (roughly 50 1)
+             :results true}))
+

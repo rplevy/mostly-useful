@@ -69,3 +69,11 @@
   `(let [start# (System/currentTimeMillis)]
     ~@body
     (- (System/currentTimeMillis) start#)))
+
+(defmacro timed-with-results
+  "time the execution of the body. Return map of :time (as milliseconds)
+  and :results"
+  [& body]
+  `(let [start# (System/currentTimeMillis)]
+    {:results (do ~@body)
+     :time (- (System/currentTimeMillis) start#)}))
