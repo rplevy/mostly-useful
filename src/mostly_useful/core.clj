@@ -96,6 +96,6 @@
   "version from leiningen project file (typically in development), or
    version from jar file (for example when deployed)"
   []
-  (if-let [project-file (io/file "project.clj")]
-    (project-file->version project-file)
+  (if (.exists (io/file "project.clj"))
+    (project-file->version (io/file "project.clj"))
     (jar-name->version (this-jar))))
