@@ -92,7 +92,7 @@
   (let [[_ _ version] (read-string (slurp project-file))]
     version))
 
-(defn this-version
+(defn this-jar-version
   "version from leiningen project file (typically in development), or
    version from jar file (for example when deployed)"
   []

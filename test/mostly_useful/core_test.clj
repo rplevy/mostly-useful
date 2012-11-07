@@ -112,4 +112,4 @@
  "about extracting version from project.clj"
  (let [version? (partial re-matches #"[0-9]+\.[0-9]+\.[0-9]+")]
    (base/project-file->version (clojure.java.io/file "project.clj")) => version?
-   (base/this-version) => version?))
+   (base/this-jar-version) => version?))
