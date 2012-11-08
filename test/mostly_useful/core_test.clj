@@ -84,3 +84,32 @@
   (contains {:time  (roughly 50 1)
              :results true}))
 
+
+(facts
+ "about extracting version from leiningen-generated file name"
+ (base/jar-name->version "foo-0.1.0-SNAPSHOT.jar")
+ => "0.1.0-SNAPSHOT"
+ (base/jar-name->version "foo-0.1.0-SNAPSHOT-standalone.jar")
+ => "0.1.0-SNAPSHOT"
+ (base/jar-name->version "foo-0.1.0.jar")
+ => "0.1.0"
+ (base/jar-name->version "foo-0.1.0-standalone.jar")
+ => "0.1.0"
+ (base/jar-name->version "foo-0.1.0-alpha.jar")
+ => "0.1.0-alpha"
+ (base/jar-name->version "foo-0.1.0-alpha-standalone.jar")
+ => "0.1.0-alpha"
+ (base/jar-name->version "foo-0.1a-foo-bar.jar")
+ => "0.1a-foo-bar"
+ (base/jar-name->version "foo-0.1a-foo-bar-standalone.jar")
+ => "0.1a-foo-bar"
+ (base/jar-name->version "mostly-useful-0.5.0.jar")
+ => "0.5.0"
+ (base/jar-name->version "mostly-useful-0.5.0")
+ => "0.5.0")
+
+(fact
+ "about extracting version from project.clj"
+ (let [version? (partial re-matches #"[0-9]+\.[0-9]+\.[0-9]+")]
+   (base/project-file->version (clojure.java.io/file "project.clj")) => version?
+   (base/this-jar-version) => version?))

@@ -1,4 +1,4 @@
-(defproject mostly-useful "0.4.0"
+(defproject mostly-useful "0.5.0"
   :description "Mostly useful utility functions."
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}

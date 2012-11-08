@@ -1,4 +1,6 @@
-(ns mostly-useful.core)
+(ns mostly-useful.core
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str]))
 
 (defmacro if-pred-let
   "If test is true, evaluates then with binding-form bound to the value of
@@ -77,3 +79,23 @@
   `(let [start# (System/currentTimeMillis)]
     {:results (do ~@body)
      :time (- (System/currentTimeMillis) start#)}))
+
+(defn this-jar []
+  (-> (class *ns*) .getProtectionDomain .getCodeSource .getLocation .getPath))
+
+(defn jar-name->version [jar-name]
+  (-> jar-name
+      (str/replace #"-standalone\.jar|\.jar" "")
+      (str/replace #".*-(\d.*)" "$1")))
+
+(defn project-file->version [project-file]
+  (let [[_ _ version] (read-string (slurp project-file))]
+    version))
+
+(defn this-jar-version
+  "version from leiningen project file (typically in development), or
+   version from jar file (for example when deployed)"
+  []
+  (if (.exists (io/file "project.clj"))
+    (project-file->version (io/file "project.clj"))
+    (jar-name->version (this-jar))))
